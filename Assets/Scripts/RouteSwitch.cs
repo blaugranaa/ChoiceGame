@@ -10,8 +10,8 @@ public class RouteSwitch : MonoBehaviour
 
     private void Start()
     {
-        follower = GetComponent<SplineFollower>();
-        follower.onNode += OnNodePassed;
+        //follower = GetComponent<SplineFollower>();
+        follower = FindObjectOfType<SplineFollower>();
     }
 
     private void OnNodePassed(List<SplineTracer.NodeConnection> passed)
@@ -28,6 +28,22 @@ public class RouteSwitch : MonoBehaviour
         double newnodePercent = (double)connections[1].pointIndex / (connections[1].spline.pointCount - 1);
         double newPercent = connections[1].spline.Travel(newnodePercent, distancePastNode, follower.direction);
         follower.SetPercent(newPercent);
-        
+
+    }
+
+    public void ChangeDirection()
+    {
+
+        follower.onNode += OnNodePassed;
+    }
+
+    private void OnEnable()
+    {
+        EventManager.OnChooseScreeenOpen.AddListener(ChangeDirection);
+    }
+    private void OnDisable()
+    {
+        EventManager.OnChooseScreeenOpen.RemoveListener(ChangeDirection);
+
     }
 }
