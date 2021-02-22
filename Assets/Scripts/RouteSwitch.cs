@@ -28,22 +28,22 @@ public class RouteSwitch : MonoBehaviour
         double newnodePercent = (double)connections[1].pointIndex / (connections[1].spline.pointCount - 1);
         double newPercent = connections[1].spline.Travel(newnodePercent, distancePastNode, follower.direction);
         follower.SetPercent(newPercent);
-
     }
 
     public void ChangeDirection()
     {
-
         follower.onNode += OnNodePassed;
     }
 
     private void OnEnable()
     {
-        EventManager.OnChooseScreeenOpen.AddListener(ChangeDirection);
+        EventManager.OnChange.AddListener(ChangeDirection);
+        EventManager.OnChooseScreeenOpen.AddListener(() => Time.timeScale = 0.2f);
+
     }
     private void OnDisable()
     {
-        EventManager.OnChooseScreeenOpen.RemoveListener(ChangeDirection);
-
+        EventManager.OnChange.RemoveListener(ChangeDirection);
+        EventManager.OnChooseScreeenOpen.RemoveListener(() => Time.timeScale = 0.2f);
     }
 }

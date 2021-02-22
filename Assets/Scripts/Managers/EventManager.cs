@@ -6,4 +6,5 @@ using UnityEngine.Events;
 public static class EventManager 
 {
     public static UnityEvent OnChooseScreeenOpen = new UnityEvent();
+    public static UnityEvent OnChange = new UnityEvent();
 }
