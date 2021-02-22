@@ -39,7 +39,6 @@ public class UIManager : MonoBehaviour
     public void Stay()
     {
         Debug.Log("changed");
-
         SetInactiveButtons();
         Time.timeScale = 1;
     }
