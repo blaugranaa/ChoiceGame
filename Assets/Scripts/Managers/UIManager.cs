@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,6 +23,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         EventManager.OnChange.Invoke();
         SetInactiveButtons();
+        EventManager.OnOtherCharacterSurvive.Invoke();
     }
 
     private void SetInactiveButtons()
@@ -38,7 +35,8 @@ public class UIManager : MonoBehaviour
 
     public void Stay()
     {
-        Debug.Log("changed");
+        EventManager.OnCharacterSurvive.Invoke();
+        Debug.Log("stayed");
         SetInactiveButtons();
         Time.timeScale = 1;
     }
