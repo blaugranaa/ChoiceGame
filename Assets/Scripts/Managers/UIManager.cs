@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject stayButton, changeButton, choiceText;
+
+    public List<Character> StayCharacters = new List<Character>();
+    public List<Character> ChangeCharacters = new List<Character>();
 
     public void ChooseScreenOpen()
     {  
@@ -20,6 +24,7 @@ public class UIManager : MonoBehaviour
     public void Change()
     {
         Debug.Log("changed");
+        EventManager.OnCharacterSurvive.Invoke(ChangeCharacters);
         Time.timeScale = 1;
         EventManager.OnChange.Invoke();
         SetInactiveButtons();
@@ -35,7 +40,7 @@ public class UIManager : MonoBehaviour
 
     public void Stay()
     {
-        EventManager.OnCharacterSurvive.Invoke();
+        EventManager.OnCharacterSurvive.Invoke(StayCharacters);
         Debug.Log("stayed");
         SetInactiveButtons();
         Time.timeScale = 1;

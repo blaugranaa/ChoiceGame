@@ -4,34 +4,46 @@ using UnityEngine;
 
 public class CharacterAnimationController : MonoBehaviour
 {
-    public List<GameObject> multiplevictim = new List<GameObject>();
+    Character character;
+    Character Character { get { return (character == null) ? character = GetComponent<Character>() : character; } }
 
-    public GameObject lonelyVictim;
+    Animator animator;
+
+    Animator Animator { get { return (animator == null) ? animator = GetComponent<Animator>() : animator; } }
 
     private void OnEnable()
     {
-        EventManager.OnChange.AddListener(LonelyVictimSurvive);
-        EventManager.OnCharacterSurvive.AddListener(MultipleCharacterSurvive);
+        EventManager.OnCharacterSurvive.AddListener(SurviveAnimation);
     }
 
     private void OnDisable()
     {
-        EventManager.OnChange.RemoveListener(LonelyVictimSurvive);
-        EventManager.OnCharacterSurvive.AddListener(MultipleCharacterSurvive);
+        EventManager.OnCharacterSurvive.AddListener(SurviveAnimation);
     }
 
-    void LonelyVictimSurvive()
+    private void OnCollisionEnter(Collision collision)
     {
-        lonelyVictim.GetComponent<Animator>().SetTrigger("OnSurvive");
-    }
-
-    void MultipleCharacterSurvive()
-    {
-        foreach (var character in multiplevictim)
+        if (collision.gameObject.GetComponent<RouteSwitch>())
         {
-            character.GetComponent<Animator>().SetTrigger("OnSurvive");
+            DieAnimation();
         }
     }
+    void SurviveAnimation(List<Character> characters)
+    {
+        bool isOnList = false;
+        for (int i = 0; i < characters.Count; i++)
+        {
+            if(ReferenceEquals(characters[i], Character))
+            {
+                isOnList = true;
+            }
+        }
 
-
+        if (!isOnList)
+            Animator.SetTrigger("OnSurvive");
+    }
+    void DieAnimation()
+    {
+        Animator.SetTrigger("OnDie");
+    }
 }
