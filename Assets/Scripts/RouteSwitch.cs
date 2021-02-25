@@ -44,4 +44,7 @@ public class RouteSwitch : MonoBehaviour
         EventManager.OnChange.RemoveListener(ChangeDirection);
         EventManager.OnChooseScreeenOpen.RemoveListener(() => Time.timeScale = 0.2f);
     }
+
+
+
 }
