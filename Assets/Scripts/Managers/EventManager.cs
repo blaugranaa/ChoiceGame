@@ -6,7 +6,6 @@ public static class EventManager
     public static UnityEvent OnChange = new UnityEvent();
     public static UnityEvent OnCharacterDie = new UnityEvent();
     public static CharacterSurviveEvent OnCharacterSurvive = new CharacterSurviveEvent();
-    public static UnityEvent OnOtherCharacterSurvive = new UnityEvent();
 }
 
 public class CharacterSurviveEvent : UnityEvent<List<Character>> { }

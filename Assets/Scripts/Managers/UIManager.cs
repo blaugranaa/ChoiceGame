@@ -28,7 +28,6 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         EventManager.OnChange.Invoke();
         SetInactiveButtons();
-        EventManager.OnOtherCharacterSurvive.Invoke();
     }
 
     private void SetInactiveButtons()
