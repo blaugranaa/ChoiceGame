@@ -3,25 +3,9 @@ using UnityEngine;
 
 public class ParticleController : MonoBehaviour
 {
-    [SerializeField] GameObject dieParticle;
-    
+    [SerializeField] ParticleSystem dieParticle;
 
-    private void OnEnable()
-    {
-        EventManager.OnCharacterDie.AddListener(() => Instantiate(dieParticle, transform.position, Quaternion.identity));
-        //EventManager.OnCharacterDie.AddListener(SpawnParticleSystem);
-    }
-    private void OnDisable()
-    {
-        EventManager.OnCharacterDie.RemoveListener(() => Instantiate(dieParticle, transform.position, Quaternion.identity));
-        //EventManager.OnCharacterDie.RemoveListener(SpawnParticleSystem);
-    }
-
-
-
-    void SpawnDieParticle()
-    { }
-    void SpawnParticleSystem()
+    void PlayParticleSystem()
     {
         ParticleSystem particleSystem = Instantiate(dieParticle, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
         particleSystem.Play();
@@ -32,5 +16,18 @@ public class ParticleController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         particleSystem.Stop();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var train = collision.gameObject.GetComponent<RouteSwitch>();
+        if (train != null)
+        {
+            //dieParticle.transform.position = transform.position;
+            //dieParticle.Play();
+            PlayParticleSystem();
+
+        }
+
     }
 }
