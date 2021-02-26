@@ -1,27 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject stayButton, changeButton, choiceText, tooL8;
+    [SerializeField] GameObject stayButton, changeButton, choiceText;
 
     public List<Character> StayCharacters = new List<Character>();
     public List<Character> ChangeCharacters = new List<Character>();
 
     public void ChooseScreenOpen()
-    {
-        SetActiveButtons();
+    {  
         EventManager.OnChooseScreeenOpen.Invoke();
-        StartCoroutine(ChooseScreenOffCo(1f));
-    }
-
-    IEnumerator ChooseScreenOffCo(float time)
-    {
-        yield return new WaitForSeconds(time);
-        Stay();
-        tooL8.SetActive(true);
-        Time.timeScale = 1;
+        SetActiveButtons();
     }
 
     void SetActiveButtons()
@@ -35,6 +25,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("changed");
         EventManager.OnCharacterSurvive.Invoke(ChangeCharacters);
+        Time.timeScale = 1;
         EventManager.OnChange.Invoke();
         SetInactiveButtons();
     }
@@ -44,7 +35,6 @@ public class UIManager : MonoBehaviour
         stayButton.SetActive(false);
         changeButton.SetActive(false);
         choiceText.SetActive(false);
-        Time.timeScale = 1;
     }
 
     public void Stay()
@@ -52,5 +42,6 @@ public class UIManager : MonoBehaviour
         EventManager.OnCharacterSurvive.Invoke(StayCharacters);
         Debug.Log("stayed");
         SetInactiveButtons();
+        Time.timeScale = 1;
     }
 }
