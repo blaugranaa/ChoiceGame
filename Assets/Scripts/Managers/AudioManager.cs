@@ -9,11 +9,14 @@ public class AudioManager : MonoBehaviour
 
     AudioSource audioSource;
 
+    AudioSource AudioSource { get { return (audioSource == null) ? audioSource = GetComponent<AudioSource>() : audioSource; } }
 
-    void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
+    //void Start()
+    //{
+    //    audioSource = GetComponent<AudioSource>();
+    //}
+
+
     private void OnEnable()
     {
         EventManager.OnCharacterDie.AddListener(PlayDieSound);
@@ -21,6 +24,6 @@ public class AudioManager : MonoBehaviour
     public void PlayDieSound()
     {
         //audioSource.clip = dieSound;
-        audioSource.PlayOneShot(dieSound);
+        AudioSource.PlayOneShot(dieSound);
     }
 }

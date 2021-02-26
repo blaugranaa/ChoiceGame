@@ -6,11 +6,14 @@ public class RouteSwitch : MonoBehaviour
 {
     private SplineFollower follower;
 
-    private void Start()
-    {
-        //follower = GetComponent<SplineFollower>();
-        follower = FindObjectOfType<SplineFollower>();
-    }
+    public SplineFollower SplineFollower { get { return (follower == null) ? follower = GetComponent<SplineFollower>() : follower; } }
+
+
+    //private void Start()
+    //{
+    //    //follower = GetComponent<SplineFollower>();
+    //    follower = FindObjectOfType<SplineFollower>();
+    //}
 
     private void OnNodePassed(List<SplineTracer.NodeConnection> passed)
     {
@@ -30,7 +33,7 @@ public class RouteSwitch : MonoBehaviour
 
     public void ChangeDirection()
     {
-        follower.onNode += OnNodePassed;
+        SplineFollower.onNode += OnNodePassed;
     }
 
     private void OnEnable()
