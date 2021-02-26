@@ -9,10 +9,10 @@ public class ParticleController : MonoBehaviour
     {
         ParticleSystem particleSystem = Instantiate(dieParticle, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
         particleSystem.Play();
-        StartCoroutine(StopParticleSystem(particleSystem, 1));
+        StartCoroutine(StopParticleSystemCo(particleSystem, 1));
     }
 
-    IEnumerator StopParticleSystem(ParticleSystem particleSystem, float time)
+    IEnumerator StopParticleSystemCo(ParticleSystem particleSystem, float time)
     {
         yield return new WaitForSeconds(time);
         particleSystem.Stop();
@@ -26,8 +26,6 @@ public class ParticleController : MonoBehaviour
             //dieParticle.transform.position = transform.position;
             //dieParticle.Play();
             PlayParticleSystem();
-
         }
-
     }
 }
